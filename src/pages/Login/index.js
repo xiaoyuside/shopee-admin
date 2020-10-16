@@ -5,19 +5,26 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { loginMock } from "../../api";
 
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    loginMock(values.username, values.password)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  // const onFinish = (values) => {
+  //   console.log("Received values of form: ", values);
+  //   loginMock(values.username, values.password)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  // take use of await/async to simplify Promise
+  const onFinish = async (values) => {
+    const response = await loginMock(values.username, values.password);
+    console.log(response.data);
   };
+
   // validate pwd
   const customizedValidator = (rule, value) => {
-    console.log(rule, value);
+    // console.log(rule, value);
     return new Promise((resolve, reject) => {
       if (!value) {
         reject(new Error("pwd have tobe entered"));
