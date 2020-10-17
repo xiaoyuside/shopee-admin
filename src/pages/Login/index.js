@@ -1,10 +1,13 @@
 import React from "react";
 import "./index.less";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { loginMock } from "../../api";
+import { login } from "../../api";
+import { withRouter } from "react-router-dom";
+import { localStorageUtils } from "../../utils";
+import {user_ls_key} from '../../config/constants'
 
-const Login = () => {
+const Login = (props) => {
   // const onFinish = (values) => {
   //   console.log("Received values of form: ", values);
   //   loginMock(values.username, values.password)
@@ -18,8 +21,15 @@ const Login = () => {
 
   // take use of await/async to simplify Promise
   const onFinish = async (values) => {
-    const response = await loginMock(values.username, values.password);
-    console.log(response.data);
+    const result = await login(values.username, values.password);
+    const { status, data, msg } = result;
+    if (status === 0) {
+      localStorageUtils.save(user_ls_key, data);
+      // repalce login page not instead of push()
+      props.history.replace("/");
+    } else {
+      message.error(msg);
+    }
   };
 
   // validate pwd
@@ -98,7 +108,7 @@ const Login = () => {
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
-            <a className="login-form-forgot" href="#">
+            <a className="login-form-forgot" href="www.baidu.com">
               Forgot password
             </a>
           </Form.Item>
@@ -118,4 +128,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);
