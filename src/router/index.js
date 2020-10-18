@@ -1,4 +1,5 @@
 import Dashboard from "../pages/Dashboard";
+import Category from '../pages/Pms/Category';
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import Oms from "../pages/Oms";
@@ -28,6 +29,13 @@ export const privateRoutes = [
     comp: Pms,
     title: "pms",
     icon: null,
+    children: [
+      {
+        pathname: "/admin/category",
+        comp: Category,
+        title: "分类维护",
+      },
+    ],
   },
   {
     pathname: "/admin/oms",

@@ -23,7 +23,33 @@ const AdminApp = () => {
                 path={route.pathname}
                 component={route.comp}
               />
+              // <>
+              //   <Route
+              //     key={route.pathname}
+              //     path={route.pathname}
+              //     component={route.comp}
+              //   />
+              //   {route.children &&
+              //     route.children.map((child) => (
+              //       <Route
+              //         key={child.pathname}
+              //         path={child.pathname}
+              //         component={child.comp}
+              //       />
+              //     ))}
+              // </>
             );
+          })}
+          {privateRoutes.map((route) => {
+            if (route.children) {
+              return route.children.map((child) => (
+                <Route
+                  key={child.pathname}
+                  path={child.pathname}
+                  component={child.comp}
+                />
+              ));
+            }
           })}
           <Redirect from="/admin" to="/admin/dashboard" exact />
           <Redirect to="/404" />

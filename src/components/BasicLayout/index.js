@@ -1,13 +1,12 @@
 import React from "react";
 import { Layout, Menu, Col, Row, Dropdown, Badge, Avatar } from "antd";
-import {
-  DownOutlined,
-} from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
 import "./index.less";
 import { withRouter } from "react-router-dom";
 import { privateRoutes } from "../../router";
 import { localStorageUtils } from "../../utils";
 import { user_ls_key } from "../../config/constants";
+import SubMenu from "antd/lib/menu/SubMenu";
 
 const { Header, Content, Sider } = Layout;
 
@@ -33,7 +32,11 @@ const DashboardLayout = (props) => {
   );
 
   return (
-    <Layout style={{ height: "100%" }}>
+    <Layout
+      style={{
+        minHeight: "100%",
+      }}
+    >
       <Header className="header">
         <Row>
           <Col span={8}>
@@ -53,8 +56,8 @@ const DashboardLayout = (props) => {
                     style={{ color: "white" }}
                     onClick={(e) => e.preventDefault()}
                   >
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                    xxx, welcome!
+                    <Avatar src="https://t.u1f.cn/images/2017/08/22/21354Hc4-14.th.jpg" />
+                    {localStorageUtils.read(user_ls_key).username}, welcome!
                     <DownOutlined />
                   </div>
                 </Badge>
@@ -74,13 +77,27 @@ const DashboardLayout = (props) => {
             style={{ height: "100%", borderRight: 0 }}
           >
             {privateRoutes.map((route) => {
+              if (route.children) {
+                return (
+                  <SubMenu
+                    key={route.pathname}
+                    icon={route.icon && <route.icon />}
+                    title={route.title}
+                  >
+                    {route.children.map((child) => (
+                      <Menu.Item key={child.pathname} title={child.title}>
+                        {child.title}
+                      </Menu.Item>
+                    ))}
+                  </SubMenu>
+                );
+              }
               return (
                 <Menu.Item
                   key={route.pathname}
-                  icon={route.icon}
+                  icon={route.icon && <route.icon />}
                   title={route.title}
                 >
-                  {route.icon && <route.icon />}
                   {route.title}
                 </Menu.Item>
               );

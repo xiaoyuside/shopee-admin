@@ -80,7 +80,3 @@ th:not([align]) {
   text-align: left;
 }
 
-html, body, #root {
-    height: 100%;
-    width: 100%;
-}
