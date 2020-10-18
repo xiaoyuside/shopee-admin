@@ -3,7 +3,7 @@ import "./index.less";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { login } from "../../api";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { localStorageUtils } from "../../utils";
 import {user_ls_key} from '../../config/constants'
 
@@ -135,4 +135,7 @@ const Login = (props) => {
   );
 };
 
-export default withRouter(Login);
+// Login component is wrappered by Router component, so it is no need to use withRouter()
+
+// export default withRouter(Login);
+export default Login;
