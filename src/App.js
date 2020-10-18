@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.less";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Redirect,
   Route,
   Switch,
@@ -49,14 +49,6 @@ const App = () => {
           }}
         />
         {commonRoutes.map((route) => {
-          if (route.pathname === "/login") {
-            // check login status
-            const userLogin = localStorageUtils.read(user_ls_key);
-            if (userLogin && userLogin._id) {
-              return <Redirect key={route.pathname} to="/" />;
-            }
-          }
-
           return (
             <Route
               key={route.pathname}

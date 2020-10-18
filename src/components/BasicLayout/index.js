@@ -1,9 +1,6 @@
 import React from "react";
 import { Layout, Menu, Col, Row, Dropdown, Badge, Avatar } from "antd";
 import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
   DownOutlined,
 } from "@ant-design/icons";
 import "./index.less";
@@ -12,10 +9,9 @@ import { privateRoutes } from "../../router";
 import { localStorageUtils } from "../../utils";
 import { user_ls_key } from "../../config/constants";
 
-const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-const DashboardLayout = ({ children, location, history }) => {
+const DashboardLayout = (props) => {
   const onClickMenu = ({ item, key, keyPath, domEvent }) => {
     console.log({ item, key, keyPath, domEvent });
 
@@ -23,7 +19,7 @@ const DashboardLayout = ({ children, location, history }) => {
       localStorageUtils.remove(user_ls_key);
     }
 
-    history.push(key); // 点击左边菜单, 右边内容跟着变化
+    props.history.push(key); // 点击左边菜单, 右边内容跟着变化
   };
 
   const menu = (
@@ -72,9 +68,9 @@ const DashboardLayout = ({ children, location, history }) => {
           <Menu
             onClick={onClickMenu}
             mode="inline"
-            // defaultSelectedKeys={["1"]}
+            // defaultSelectedKeys={[props.location.pathname]}
             // defaultOpenKeys={["sub1"]}
-            selectedKeys={location.pathname}
+            selectedKeys={[props.location.pathname]}
             style={{ height: "100%", borderRight: 0 }}
           >
             {privateRoutes.map((route) => {
@@ -122,7 +118,7 @@ const DashboardLayout = ({ children, location, history }) => {
               minHeight: 280,
             }}
           >
-            {children}
+            {props.children}
           </Content>
         </Layout>
       </Layout>

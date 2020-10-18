@@ -3,11 +3,18 @@ import "./index.less";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { login } from "../../api";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { localStorageUtils } from "../../utils";
 import {user_ls_key} from '../../config/constants'
 
 const Login = (props) => {
+
+  const userLogin = localStorageUtils.remove(user_ls_key)
+  if (userLogin && userLogin._id) {
+    return <Redirect to="/" />
+  }
+
+
   // const onFinish = (values) => {
   //   console.log("Received values of form: ", values);
   //   loginMock(values.username, values.password)
