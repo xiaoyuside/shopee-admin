@@ -5,11 +5,11 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { login } from "../../api";
 import { Redirect } from "react-router-dom";
 import { localStorageUtils } from "../../utils";
-import {user_ls_key} from '../../config/constants'
+import {LS_KEY_USER_LOGIN} from '../../config/constants'
 
 const Login = (props) => {
 
-  const userLogin = localStorageUtils.remove(user_ls_key)
+  const userLogin = localStorageUtils.remove(LS_KEY_USER_LOGIN)
   if (userLogin && userLogin._id) {
     return <Redirect to="/" />
   }
@@ -31,7 +31,7 @@ const Login = (props) => {
     const result = await login(values.username, values.password);
     const { status, data, msg } = result;
     if (status === 0) {
-      localStorageUtils.save(user_ls_key, data);
+      localStorageUtils.save(LS_KEY_USER_LOGIN, data);
       // repalce login page not instead of push()
       props.history.replace("/");
     } else {

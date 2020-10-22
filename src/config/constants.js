@@ -1,1 +1,1 @@
-export const user_ls_key = 'user_ls_key';
+export const LS_KEY_USER_LOGIN = 'user_ls_key';

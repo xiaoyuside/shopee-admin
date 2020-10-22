@@ -5,7 +5,7 @@ import "./index.less";
 import { withRouter } from "react-router-dom";
 import { privateRoutes } from "../../router";
 import { localStorageUtils } from "../../utils";
-import { user_ls_key } from "../../config/constants";
+import { LS_KEY_USER_LOGIN } from "../../config/constants";
 import SubMenu from "antd/lib/menu/SubMenu";
 
 const { Header, Content, Sider } = Layout;
@@ -15,7 +15,7 @@ const DashboardLayout = (props) => {
     console.log({ item, key, keyPath, domEvent });
 
     if (key === "/login") {
-      localStorageUtils.remove(user_ls_key);
+      localStorageUtils.remove(LS_KEY_USER_LOGIN);
     }
 
     props.history.push(key); // 点击左边菜单, 右边内容跟着变化
@@ -57,7 +57,7 @@ const DashboardLayout = (props) => {
                     onClick={(e) => e.preventDefault()}
                   >
                     <Avatar src="https://t.u1f.cn/images/2017/08/22/21354Hc4-14.th.jpg" />
-                    {localStorageUtils.read(user_ls_key).username}, welcome!
+                    {localStorageUtils.read(LS_KEY_USER_LOGIN).username}, welcome!
                     <DownOutlined />
                   </div>
                 </Badge>

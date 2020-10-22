@@ -31,7 +31,7 @@ export const privateRoutes = [
     icon: null,
     children: [
       {
-        pathname: "/admin/category",
+        pathname: "/admin/pms/category",
         comp: Category,
         title: "分类维护",
       },

@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { commonRoutes, privateRoutes } from "./router";
 import { localStorageUtils } from "./utils";
-import { user_ls_key } from "./config/constants";
+import { LS_KEY_USER_LOGIN } from "./config/constants";
 import BasicLayout from "./components/BasicLayout";
 
 const AdminApp = () => {
@@ -18,7 +18,7 @@ const AdminApp = () => {
         <Switch>
           {privateRoutes.map((route) => {
             return (
-              <Route
+              <Route exact
                 key={route.pathname}
                 path={route.pathname}
                 component={route.comp}
@@ -43,13 +43,14 @@ const AdminApp = () => {
           {privateRoutes.map((route) => {
             if (route.children) {
               return route.children.map((child) => (
-                <Route
+                <Route exact
                   key={child.pathname}
                   path={child.pathname}
                   component={child.comp}
                 />
               ));
-            }
+            } 
+            return null;
           })}
           <Redirect from="/admin" to="/admin/dashboard" exact />
           <Redirect to="/404" />
@@ -67,7 +68,7 @@ const App = () => {
           path="/admin"
           render={() => {
             // check access
-            const userLogin = localStorageUtils.read(user_ls_key);
+            const userLogin = localStorageUtils.read(LS_KEY_USER_LOGIN);
             if (!userLogin || !userLogin._id) {
               return <Redirect to="/login" />;
             }
